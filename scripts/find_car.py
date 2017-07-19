@@ -1,5 +1,5 @@
 """
-Convienience script to find your Raspberry Pi on a local network. 
+Convienient script to find your Raspberry Pi on a local network.
 
 Usage:
     find_car.py [--ip=<ip>]
@@ -8,10 +8,10 @@ Options:
   --ip=<ip>   Base ip address of your network [default: 192.168.1.0]
 """
 
-
 from docopt import docopt
 import os
 import socket
+import subprocess
 
 args = docopt(__doc__)
 ip = args['--ip']
@@ -22,13 +22,7 @@ s.connect(("8.8.8.8",80))
 print('Your IP address: %s ' %s.getsockname()[0])
 s.close()
 
-
-import subprocess
-
 print("Finding your car's IP address...")
 cmd = "sudo nmap -sP " + ip + "/24 | awk '/^Nmap/{ip=$NF}/B8:27:EB/{print ip}'"
 print("Your car's ip address is:" )
 os.system(cmd)
-
-
-
